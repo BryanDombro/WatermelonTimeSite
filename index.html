@@ -1,130 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="style.css">
+ <script src="script.js" defer></script>
   <title> Watermelon Time</title>
   <!-- Shows in tab at top of the browser !-->
-    <style>
-      /*<Style> uses CSS comments
-      this '*' applies to all elements in the style section.*/
 
-      *{
-        box-sizing: border-box;
-      } /* this makes padding and border included inside the width setting instead of added on */
-      
-      h1 {
-        color: green;
-        text-align: center;
-        font-size: 45px;
-        margin-top: 0;
-      }
 
-      /* .class-name makes this reusable */ 
-      .container {
-        margin-top: 0px;
-        margin-bottom: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 10px;
-      }
-
-      .container-wide{
-        max-width: 600px;
-      }
-
-      .container-narrow{
-        max-width: 400px;
-      }
-
-      .card {
-        background: lightgreen;
-        padding: 10px;
-        border-radius: 12px;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-      }
-
-      body {
-        margin: 0;
-        background-color: pink;
-        text-align: center;
-        color: black;
-        font-family: Arial;
-        font-size: 18px;
-      }
-
-      #summary {
-        color: #333;
-        font-size: 17px;
-        line-height: 1.6;
-      }
-
-      .fine-print {
-        color: darkred;
-        font-size: 13px;
-        line-height: 1.5;
-        margin-top: 15px;
-      }
-
-      #submissionForm {
-        text-align:center;
-        background-color: lightgreen;
-        padding: 0px;
-        margin: 10px auto;
-        max-width: 400px;
-        border-radius: 8px;
-      }
-      input[type="text"],
-      input[type="tel"] {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 14px;
-      }
-      
-      input {
-        display: block;
-        margin: 8px auto;
-      }
-
-      input[type="checkbox"] {
-        display: inline;
-        padding: 12px;
-        margin: 8px;
-      }
-
-      button {
-        width: 50%;
-        padding: 15px;
-        margin: 8px;
-        border: none;
-        border-radius: 6px;
-        background: whitesmoke;
-        color: black;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-      } 
-  
-      button:hover:not(:disabled) {
-        background: forestgreen;
-        color: white;
-      }
-
-      button:disabled {
-        background: darkolivegreen;
-        cursor: not-allowed;
-        opacity: 0.4;
-      }
-
-      #successMessage {
-        display: none;
-        background-color: lightgreen;
-        padding: 10px;
-        margin: 10px auto;
-        max-width: 400px;
-        border-radius: 8px;
-      }
-    </style>
+    
 </head>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -210,48 +93,6 @@
         </div>
       </div>
     </div>
-
-    <script>
-      const userInput = document.getElementById('user');
-      const phoneInput = document.getElementById('phone_number');
-      const submitButton = document.getElementById('submitButton');
-      const consentBox = document.getElementById('consent');
-
-      userInput.addEventListener('input', checkInputs);
-      phoneInput.addEventListener('input', checkInputs);
-      consentBox.addEventListener('change', checkInputs);
-
-      function checkInputs() {
-        const namePresent = userInput.value.trim().length > 0;
-        const phoneValid = phoneInput.value.length === 10;
-        const consentChecked = consentBox.checked;
-        submitButton.disabled = !(namePresent && phoneValid && consentChecked);
-      }
-
-      const form = document.getElementById('submissionForm');
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const data = new FormData(form);
-        fetch(form.action, {
-          method: form.method,
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        }).then(response => {
-          if (response.ok) {
-            form.style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-          } else {
-            alert("Something went wrong submitting the form — please try again.");
-          }
-        }).catch(() => {
-          alert("Something went wrong submitting the form — please try again.");
-        });
-      });
-
-      window.addEventListener('load', function () {
-        document.getElementById('submissionForm').reset();
-      });
-    </script>
 
 </body>
 

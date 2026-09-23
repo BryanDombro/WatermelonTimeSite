@@ -78,7 +78,7 @@
         padding: 12px;
         border: 1px solid #ccc;
         border-radius: 6px;
-        font-size: 12px;
+        font-size: 14px;
       }
       
       input {
@@ -86,9 +86,16 @@
         margin: 8px auto;
       }
 
+      input[type="checkbox"] {
+        display: inline;
+        padding: 12px;
+        margin: 8px;
+      }
+
       button {
         width: 50%;
-        padding: 14px;
+        padding: 15px;
+        margin: 8px;
         border: none;
         border-radius: 6px;
         background: whitesmoke;
@@ -133,7 +140,7 @@
     <p id="summary"> 
       The word Sandia means watermelon in Spanish. The Spanish first entering the Rio Grande Valley in what is now Albuquerque New Mexico may have given that name to the mountains because at sunset they glow an incredibly bright pink. My family likes to call this phenomenon: <br> 🍉 <strong><em>"Watermelon Time"</em></strong> 🌄 <br><br>The exact time changes throughout the year, and is highly dependent on the weather/clouds. If you want to know if the Sandia's are glowing, signup to get a SMS notification straight to your pocket.
       <br><br>
-      No text if it's cloudy or rainy. Just the exact time to go outside and look East.
+      No text if it's cloudy or rainy. Just one message at the exact time to go outside and look East.
     </p>
     
     <p class="fine-print">
@@ -147,67 +154,79 @@
 
     <div class="container container-narrow">
       <div class="card">
-    <form  id="submissionForm"   action="https://formspree.io/f/meaogbdk"   method="POST">
-      <input type="hidden" name="_subject" value="New Watermelon Time signup!">
+        <form  id="submissionForm"   action="https://formspree.io/f/meaogbdk"   method="POST">
+          <input type="hidden" name="_subject" value="New Watermelon Time signup!">
+          <label>What would you liked to be called? </label>
+          <input 
+            type="text"
+            id= "user"
+            name="user"
+            placeholder="Juan Tabo"
+            maxlength="22"
+            pattern="(?=.*[A-Za-z])[A-Za-z\s'\-]+"
+            required
+          >
 
-      <label>What would you liked to be called? </label>
-      <input 
-        type="text"
-        id= "user"
-        name="user"
-        placeholder="Juan Tabo"
-        maxlength="22"
-        pattern="(?=.*[A-Za-z])[A-Za-z\s'\-]+"
-        required
-      >
+          <label>Phone number to message </label>
+          <!-- 
+            tel brings up numpad, 
+            maxlength limits char count, 
+            pattern set requirement on submit
+            replace anything NOT 0-9, globally, with ''
+          -->
+          <input 
+            type="tel" 
+            id="phone_number"
+            name="phone_number" 
+            placeholder="5051234567"
+            maxlength="10"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            pattern="[0-9]{10}"
+            required
+          >
 
-      <label>Phone number to message </label>
-      <!-- 
-        tel brings up numpad, 
-        maxlength limits char count, 
-        pattern set requirement on submit
-        replace anything NOT 0-9, globally, with ''
-      -->
-      <input 
-        type="tel" 
-        id="phone_number"
-        name="phone_number" 
-        placeholder="5051234567"
-        maxlength="10"
-        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-        pattern="[0-9]{10}"
-        required
-      >
+            
+            <label >
+             <input 
+             type="checkbox"
+             id="consent"
+             name="consent" 
+             unchecked/>
+             I consent to receive messages.
+            </label>
 
-      <button 
-        type="submit"
-        id="submitButton"
-        disabled
-        >Sign Up
-      </button>
+          <button 
+            type="submit"
+            id="submitButton"
+            disabled
+            >Sign Up
+          </button>
     
-    </form>
+        </form>
 
-
-    <div id="successMessage">
-      🍉 You're signed up! We'll text you when it's Watermelon Time. 🍉
+        <div id="successMessage">
+          Sorry this project is still under construction!<br> Please check back later ❤️
+          <!--You're signed up! We'll text you when it's Watermelon Time. 🍉 -->
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
     <script>
       const userInput = document.getElementById('user');
       const phoneInput = document.getElementById('phone_number');
       const submitButton = document.getElementById('submitButton');
+      const consentBox = document.getElementById('consent');
+
+      userInput.addEventListener('input', checkInputs);
+      phoneInput.addEventListener('input', checkInputs);
+      consentBox.addEventListener('change', checkInputs);
 
       function checkInputs() {
         const namePresent = userInput.value.trim().length > 0;
         const phoneValid = phoneInput.value.length === 10;
-        submitButton.disabled = !(namePresent && phoneValid);
+        const consentChecked = consentBox.checked;
+        submitButton.disabled = !(namePresent && phoneValid && consentChecked);
       }
-
-      userInput.addEventListener('input', checkInputs);
-      phoneInput.addEventListener('input', checkInputs);
 
       const form = document.getElementById('submissionForm');
       form.addEventListener('submit', function (e) {
@@ -227,6 +246,10 @@
         }).catch(() => {
           alert("Something went wrong submitting the form — please try again.");
         });
+      });
+
+      window.addEventListener('load', function () {
+        document.getElementById('submissionForm').reset();
       });
     </script>
 

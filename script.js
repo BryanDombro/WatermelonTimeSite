@@ -1,15 +1,12 @@
-const userInput = document.getElementById('user');
 const phoneInput = document.getElementById('phone_number');
 const submitButton = document.getElementById('submitButton');
 const consentBox = document.getElementById('consent');
-userInput.addEventListener('input', checkInputs);
 phoneInput.addEventListener('input', checkInputs);
 consentBox.addEventListener('change', checkInputs);
 function checkInputs() {
-  const namePresent = userInput.value.trim().length > 0;
   const phoneValid = phoneInput.value.length === 10;
   const consentChecked = consentBox.checked;
-  submitButton.disabled = !(namePresent && phoneValid && consentChecked);
+  submitButton.disabled = !(phoneValid && consentChecked);
 }
 const form = document.getElementById('submissionForm');
 form.addEventListener('submit', function (e) {

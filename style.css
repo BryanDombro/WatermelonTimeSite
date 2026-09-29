@@ -25,7 +25,7 @@ h1 {
 }
 
 .container-narrow{
-  max-width: 400px;
+  max-width: 480px;
 }
 
 .card {
@@ -84,6 +84,11 @@ input[type="checkbox"] {
   display: inline;
   padding: 12px;
   margin: 8px;
+}
+
+.consent-text{
+  display: inline-block;
+  font-size: 1rem;
 }
 
 button {

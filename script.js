@@ -3,11 +3,13 @@ const submitButton = document.getElementById('submitButton');
 const consentBox = document.getElementById('consent');
 phoneInput.addEventListener('input', checkInputs);
 consentBox.addEventListener('change', checkInputs);
+
 function checkInputs() {
   const phoneValid = phoneInput.value.length === 10;
   const consentChecked = consentBox.checked;
   submitButton.disabled = !(phoneValid && consentChecked);
 }
+
 const form = document.getElementById('submissionForm');
 form.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -27,6 +29,7 @@ form.addEventListener('submit', function (e) {
     alert("Something went wrong submitting the form — please try again.");
   });
 });
+
 window.addEventListener('load', function () {
   document.getElementById('submissionForm').reset();
 });
